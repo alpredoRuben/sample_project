@@ -31,6 +31,18 @@ class ProductController extends Controller
         return view('containers.product.create', compact('records', 'categories'));
     }
 
+    public function edit($id)
+    {
+        $records = [
+            'user' => Auth::user(),
+            'title' => 'produk',
+            'categories' => \App\Models\Category::all(),
+            'product' => Product::find($id),
+        ];
+
+        return view('containers.product.update', compact('records'));
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -117,6 +129,23 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+        $record = Product::find($id);
+
+        if (!$record) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Produk tidak ditemukan'
+            ], 404);
+        }
+
+        $name = $record->name;
+
+        $record->delete();
+
+        return response()->json([
+            "success" => true,
+            "message" => "Product ". $name ." berhasil dihapus",
+        ]);
     }
 
     public function lists()

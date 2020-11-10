@@ -153,9 +153,7 @@ function hideCategoryModal() {
 }
 
 function editRow(id) {
-    Api.get(`/categories/${id}`).then(function(response) {
-        const {data} = response;
-    });
+    window.location.href = "{!! url('products/edit') !!}" + "/" + id
 }
 
 function deleteRow(id) {
@@ -168,16 +166,16 @@ function deleteRow(id) {
     })
     .then((willDelete) => {
         if (willDelete) {
-            Api.delete(`/categories/${id}`).then(function(response) {
+            Api.delete(`/products/${id}`).then(function(response) {
                 const {data, status} = response;
-                if(status == 200) {
+                if(data.success) {
                     swal(data.message, { icon: "success" });
+                    initDatatables(tableStructure);
                 }
-
-                initDatatables(tableStructure);
             });
-
         }
+
+
     });
 }
 

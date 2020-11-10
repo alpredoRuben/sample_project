@@ -143,6 +143,10 @@ function initDatatables(_table_id) {
 
 }
 
+function orderRow(id) {
+    window.location.href = "{!! url('orders/preview') !!}" + "/" + id
+}
+
 $(function () {
     initDatatables(localTable);
 });

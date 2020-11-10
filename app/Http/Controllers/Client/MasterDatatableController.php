@@ -45,9 +45,9 @@ class MasterDatatableController extends Controller
 
         return DataTables::of($records)->addColumn('action', function ($query) use ($user) {
             $str = '';
-            $str .= '<button type="button" class="btn btn-sm btn-primary" onclick="viewRow(\'' . $query->id . '\')" title="Preview Row">';
-            $str .= '<i class="fa fa-eye"></i>';
-            $str .= '</button>&nbsp;';
+            // $str .= '<button type="button" class="btn btn-sm btn-primary" onclick="viewRow(\'' . $query->id . '\')" title="Preview Row">';
+            // $str .= '<i class="fa fa-eye"></i>';
+            // $str .= '</button>&nbsp;';
 
             if ($user->hasRole('admin')) {
                 $str .= '<button type="button" class="btn btn-success btn-sm" onclick="editRow(\'' . $query->id . '\')" title="Edit Row">';
@@ -107,7 +107,7 @@ class MasterDatatableController extends Controller
                 $str .= '<i class="fa fa-trash"></i>';
                 $str .= '</button>';
             } else {
-                $str .= '<button type="button" class="btn btn-sm btn-success" onclick="deleteRow(\'' . $query->id . '\')" title="Order Row">';
+                $str .= '<button type="button" class="btn btn-sm btn-success" onclick="orderRow(\'' . $query->id . '\')" title="Order Row">';
                 $str .= '<i class="fa fa-cart-plus"></i> Pesan';
                 $str .= '</button>';
             }

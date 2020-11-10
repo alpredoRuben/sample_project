@@ -59,10 +59,17 @@
             </li>
 
             @else
-            <li>
+            <li {!! $title == 'produk' ? "class='active'" : "" !!}>
                 <a href="{{ url('list/details_product') }}">
                     <i class="fa fa-product-hunt"></i>
                     <span class="nav-label">Produk</span>
+                </a>
+            </li>
+
+            <li {!! $title == 'produk' ? "class='active'" : "" !!}>
+                <a href="{{ url('list/details_product') }}">
+                    <i class="fa fa-cart-plus"></i>
+                    <span class="nav-label">Keranjang Belanja</span>
                 </a>
             </li>
             @endif
