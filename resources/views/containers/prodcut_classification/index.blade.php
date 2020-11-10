@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <div data-toggle="buttons" class="btn-group btn-group-toggle">
-                                <button class="btn btn-sm btn-primary" onclick="showModals('add')">
+                                <button class="btn btn-sm btn-primary" onclick="showModals()">
                                     <i class="fa fa-plus"></i>
                                     Klasifikasi Produk
                                 </button>
@@ -68,7 +68,7 @@ var tableStructure = 'tableClassification';
 var modalName = $("#modalProductClassification");
 var selectClassification = $("#selectClassification");
 
-function setSelectCategory(select, data, param = null, index = null) {
+function setSelectCategory(select, data, param = null) {
     select.empty();
 
     select.empty();
@@ -77,12 +77,9 @@ function setSelectCategory(select, data, param = null, index = null) {
         select.append(new Option('-- PILIH KATEGORI -- ', ''))
 
         $.each(data, function (i, v) {
-            select.append(new Option(
-                v.type_name.toUpperCase(),
-                v.id,
-                (param != null && param == i) ? true : false,
-                (param != null && param == i) ? true : false
-            ));
+            console.log(v);
+            const condited = (param != null && param == v.id) ? true : false
+            select.append(new Option(v.type_name.toUpperCase(), v.id, condited, condited));
         });
     }
 }
@@ -93,11 +90,10 @@ function tableDestroyed(tables) {
     }
 }
 
-async function getClassifications(param = null, index = null) {
-    await Api.get('classifications/all').then(function(response) {
-        console.log(response);
+function getClassifications(param = null) {
+    Api.get('classifications/all').then(function(response) {
         const {data} = response;
-        setSelectCategory(selectClassification, data);
+        setSelectCategory(selectClassification, data, param);
     })
 }
 
@@ -114,6 +110,9 @@ function initColumns() {
         {
             data: "type_name",
             name: "type_name",
+            render: function(data) {
+                return data.toUpperCase();
+            }
         },
         {
             data: "name",
@@ -122,6 +121,14 @@ function initColumns() {
         {
             data: "value",
             name: "value",
+            render: function(data, type, row) {
+                console.log("Row", row)
+                if(row.type_name == 'condition') {
+                    return (data == 1) ? 'Ada' : 'Tidak Ada'
+                }
+
+                return data;
+            }
         },
         {
             data: "action",
@@ -177,49 +184,68 @@ function hideCategoryModal() {
     modalName.modal('hide');
 }
 
-function showModals(str, data=null) {
-    modalName.modal('show');
-
-    var title = 'Tambah Klassifikasi Produk';
-    var buttonText = 'Save';
-
-    modalName.find('#formClassification').trigger("reset");
-    modalName.find('.modal-footer button#submitClassification').attr('data-id', "");
+function showModals() {
 
     $("#componentClassed").children().hide()
-
+    modalName.find('#formClassification').trigger("reset");
     getClassifications()
 
-    if(str != 'add') {
-        title = 'Ubah Klassifikasi Produk';
-        buttonText = 'Update';
-    }
-
-    modalName.find('.modal-title').text(title);
-    modalName.find('.modal-footer button#submitClassification').text(buttonText);
+    modalName.find('.modal-footer button#submitClassification').attr('data-id', "");
+    modalName.find('.modal-title').text('Tambah Klassifikasi Produk');
+    modalName.find('.modal-footer button#submitClassification').text('save');
+    modalName.modal('show');
 }
 
 function editRow(id) {
-    Api.get(`/categories/${id}`).then(function(response) {
+    Api.get(`/classification_products/${id}`).then(function(response) {
+        console.log(response);
         const {data} = response;
-        showModals('update', data);
-        $('#submitCategory').attr('data-id', data.id);
-        $("#categoryName").val(data.name);
-        $("#categoryDesc").val(data.description);
+        modalName.find('#formClassification').trigger("reset");
+
+        getClassifications(data.classification_id)
+        $("#componentClassed").children().hide()
+        modalName.find('.modal-footer button#submitClassification').attr('data-id', data.id);
+        modalName.find('.modal-title').text('Ubah Klassifikasi Produk');
+        modalName.find('.modal-footer button#submitClassification').text('Update');
+        modalName.modal('show');
+
+        $("#classedName").val(data.name);
+
+        switch (data.classification.type_name.toUpperCase()) {
+            case 'NUMERIC':
+                $("#classedValueNumeric").show();
+                $("#classedValueNumeric").val(data.value)
+                break;
+
+            case 'TEXT':
+                $("#classedValueText").show();
+                $("#classedValueText").val(data.value)
+                break;
+
+            case 'LISTED':
+                $(".bootstrap-tagsinput").show()
+                $('#classedValueListed').tagsinput('add', data.value);
+                break;
+
+            default:
+                $("#classedValueCondition").show();
+                $("#classedValueCondition").val(data.value)
+                break;
+        }
     });
 }
 
 function deleteRow(id) {
     swal({
         title: "Anda Yakin?",
-        text: "Data kategori akan terhapus secara permanen!",
+        text: "Data Klassifikasi Produk akan terhapus secara permanen!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
     })
     .then((willDelete) => {
         if (willDelete) {
-            Api.delete(`/categories/${id}`).then(function(response) {
+            Api.delete(`/classification_products/${id}`).then(function(response) {
                 const {data, status} = response;
                 if(status == 200) {
                     swal(data.message, { icon: "success" });
@@ -234,6 +260,7 @@ function deleteRow(id) {
 
 $(function () {
     initDatatables(tableStructure);
+    //var tagify = new Tagify($("#classedValueListed"))
 
     selectClassification.change(function (e) {
         e.preventDefault();
@@ -243,22 +270,83 @@ $(function () {
 
         switch (selected) {
             case 'NUMERIC':
-                $("#classedValueNumeric").show()
+                $("#classedValueNumeric").show();
                 break;
 
             case 'TEXT':
-                $("#classedValueText").show()
+                $("#classedValueText").show();
                 break;
 
             case 'LISTED':
-                $("#classedValueListed").show()
+                $(".bootstrap-tagsinput").show()
                 break;
 
             default:
                 $("#classedValueCondition").show();
                 break;
         }
+    });
 
+
+    $('#submitClassification').click(function (e) {
+        e.preventDefault();
+        const id = $(this).attr('data-id');
+        const selected = $('#selectClassification option:selected').text();
+
+        var data = {
+            classification_id: $("#selectClassification").val(),
+            name: $("#classedName").val(),
+            value: '',
+        }
+
+        switch (selected) {
+            case 'NUMERIC':
+                data.value = $("#classedValueNumeric").val();
+                break;
+
+            case 'TEXT':
+                data.value = $("#classedValueText").val();
+                break;
+
+            case 'LISTED':
+                data.value = $("#classedValueListed").val();
+                break;
+
+            default:
+                data.value = $("#classedValueCondition").val();
+                break;
+        }
+
+
+        console.log("Data", data);
+
+        if(id == '') {
+            /** Create New */
+            Api.post('/classification_products', data).then(function(response) {
+                const {data, status} = response;
+                if(data.success) {
+                    swal("Berhasil", data.message, "success");
+                    initDatatables(tableStructure);
+                    hideCategoryModal()
+                }
+            }).catch(function(error) {
+                console.log("Error", error)
+            })
+
+        }
+        else {
+            Api.put(`/classification_products/${id}`, data).then(function(response) {
+                console.log("Response", response);
+                const {data, status} = response;
+                if(data.success) {
+                    swal("Berhasil", data.message, "success");
+                    initDatatables(tableStructure);
+                    hideCategoryModal()
+                }
+            }).catch(function(error) {
+                console.log("Error", error)
+            })
+        }
 
     });
 

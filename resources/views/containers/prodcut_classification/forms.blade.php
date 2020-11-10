@@ -35,12 +35,9 @@
                         </label>
                         <div id="componentClassed" class="col-sm-8">
                             <input type="text" id="classedValueText" class="form-control">
-
-                            <input type="text" id="classedValueListed" value="" data-role="tagsinput" />
-
-
-                            <input type="number" id="classedValueNumeric" class="form-control">
-
+                            <input type="text" data-role="tagsinput" value="" id="classedValueListed">
+                            {{-- <input type="text" id="classedValueListed" data-role="tagsinput" value=""> --}}
+                            <input type="number" name="classedValueNumeric" id="classedValueNumeric" class="form-control">
                             <select id="classedValueCondition" class="form-control">
                                 <option value="1">Ada</option>
                                 <option value="0">Tidak Ada</option>

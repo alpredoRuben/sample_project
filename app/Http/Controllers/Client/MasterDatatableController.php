@@ -70,6 +70,7 @@ class MasterDatatableController extends Controller
         $records = ProductClassification::with(['classification'])->orderBy('id', 'desc')->get();
 
         return DataTables::of($records)->addColumn('action', function ($query) use ($user) {
+            $str = '';
 
             if ($user->hasRole('admin')) {
                 $str .= '<button type="button" class="btn btn-success btn-sm" onclick="editRow(\'' . $query->id . '\')" title="Edit Row">';

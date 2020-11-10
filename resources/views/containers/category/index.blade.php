@@ -18,9 +18,6 @@
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -29,7 +26,7 @@
                             <div data-toggle="buttons" class="btn-group btn-group-toggle">
                                 <button class="btn btn-sm btn-primary" onclick="showModals('add')">
                                     <i class="fa fa-plus"></i>
-                                    Tambah Kategori
+                                    Kategori
                                 </button>
                             </div>
                         </div>

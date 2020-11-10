@@ -72,7 +72,7 @@ class ProductClassificationController extends Controller
      */
     public function show($id)
     {
-        $record = ProductClassification::find($id);
+        $record = ProductClassification::with(['classification'])->find($id);
         return response()->json($record, 200);
     }
 
