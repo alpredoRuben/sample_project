@@ -13,12 +13,7 @@
                 </a>
             </li>
             <li class="breadcrumb-item active">
-                <a href="index.html" class="btn btn-link btn-sm">
-                    <strong>Produk Variant</strong>
-                </a>
-            </li>
-            <li class="breadcrumb-item active">
-                <a href="index.html" class="btn btn-link btn-sm">
+                <a href="{{ route('details_product.index') }}" class="btn btn-link btn-sm">
                     <strong>Detail Produk</strong>
                 </a>
             </li>

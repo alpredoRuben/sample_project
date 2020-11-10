@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Client'], function () {
         /** Products */
         Route::group(['prefix' => 'products'], function () {
             Route::get('/', 'ProductController@index')->name('products.index');
+            Route::get('/lists', 'ProductController@lists')->name('products.lists');
             Route::get('/create', 'ProductController@create');
             Route::get('/{product}', 'ProductController@show')->name('products.show');
             Route::post('/', 'ProductController@store')->name('products.store');
@@ -31,8 +32,12 @@ Route::group(['namespace' => 'Client'], function () {
         /** Product Classification */
         Route::resource('classification_products', 'ProductClassificationController')->except([ 'edit', 'create']);
 
+        /** Product Detail */
+        Route::resource('details_product', 'ProductDetailController');
+
         /** Classifications */
         Route::get('classifications/all', 'ClassificationController@getClassifications');
+
 
 
         Route::group(['prefix' => 'datatables'], function () {

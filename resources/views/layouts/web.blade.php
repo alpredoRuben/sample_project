@@ -7,9 +7,13 @@
     <title>PROJECTS</title>
 
     <link href="{{ asset('template/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/css/bootstrap-multiselect.min.css" type="text/css">
+
     <link href="{{ asset('template/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('template/css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
     <link href="{{ asset('template/css/plugins/morris/morris-0.4.3.min.css') }}" rel="stylesheet">
+
+
 
     <link href="{{ asset('template/css/tagsinput.css')}}" rel="stylesheet" type="text/css">
 
@@ -43,6 +47,7 @@
     <script src="{{ asset('template/js/axios.min.js') }}"></script>
 
     <script src="{{ asset('template/js/bootstrap.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/js/bootstrap-multiselect.min.js"></script>
 
     <script src="{{ asset('template/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
     <script src="{{ asset('template/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
@@ -50,8 +55,10 @@
     <script src="{{ asset('template/js/plugins/dataTables/datatables.min.js') }}"></script>
     <script src="{{ asset('template/js/plugins/dataTables/dataTables.bootstrap4.min.js')}}"></script>
 
+    <script type="text/javascript" src="{{ asset('template/js/bootstrap-multiselect.js') }}"></script>
 
-    <script src="{{ asset('template/js/tagsinput.js')}}"></script>
+
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 

@@ -194,6 +194,7 @@ function showModals() {
     modalName.find('.modal-title').text('Tambah Klassifikasi Produk');
     modalName.find('.modal-footer button#submitClassification').text('save');
     modalName.modal('show');
+    $('#classedValueListed').tagsinput('removeAll');
 }
 
 function editRow(id) {
@@ -209,6 +210,7 @@ function editRow(id) {
         modalName.find('.modal-footer button#submitClassification').text('Update');
         modalName.modal('show');
 
+        $('#classedValueListed').tagsinput('removeAll');
         $("#classedName").val(data.name);
 
         switch (data.classification.type_name.toUpperCase()) {

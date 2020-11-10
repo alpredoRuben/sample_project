@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ProductDetail;
+use App\Models\Product;
+use App\Models\Classification;
+use App\Models\ProductClassification;
 
 class ProductDetailController extends Controller
 {
@@ -14,7 +19,12 @@ class ProductDetailController extends Controller
      */
     public function index()
     {
-        //
+        $records = [
+            'user' => Auth::user(),
+            'title' => 'produk'
+        ];
+
+        return view('containers.product_detail.index', compact('records'));
     }
 
     /**
@@ -24,7 +34,17 @@ class ProductDetailController extends Controller
      */
     public function create()
     {
-        //
+        $records = [
+            'user' => Auth::user(),
+            'title' => 'produk',
+            'subtitle' => 'Form Detail Produk',
+            'subid' => '',
+            'group_product' => Product::get(),
+            'classifications' => Classification::get(),
+            'product_classification' => ProductClassification::with(['classification'])->get()
+        ];
+
+        return view('containers.product_detail.forms', compact('records'));
     }
 
     /**
@@ -49,16 +69,7 @@ class ProductDetailController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
