@@ -57,8 +57,15 @@
                     <span class="nav-label">Laporan</span>
                 </a>
             </li>
-            @endif
 
+            @else
+            <li>
+                <a href="{{ url('list/details_product') }}">
+                    <i class="fa fa-product-hunt"></i>
+                    <span class="nav-label">Produk</span>
+                </a>
+            </li>
+            @endif
 
 
 

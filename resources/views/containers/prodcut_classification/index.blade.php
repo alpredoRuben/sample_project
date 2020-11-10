@@ -280,7 +280,9 @@ $(function () {
                 break;
 
             case 'LISTED':
-                $(".bootstrap-tagsinput").show()
+                $("#classedValueListed").tagsinput('removeAll');
+                $(".bootstrap-tagsinput").show();
+                //$("#classedValueListed").show();
                 break;
 
             default:

@@ -436,7 +436,9 @@ $(function () {
 
     $("#saveAll").click(function (e) {
         e.preventDefault();
-        const storage = JSON.parse(localStorage.getItem(storageName));
+        let storage = JSON.parse(localStorage.getItem(storageName));
+        storage = (storage && storage.length > 0) ? storage : [];
+
         const data = {
             product_id: $("#productGroup").val(),
             name: $("#productDetailName").val(),
@@ -446,6 +448,22 @@ $(function () {
         }
 
         console.log("Data", data);
+
+        if(records.subid == '') {
+            Api.post('/details_product', data).then(function(response) {
+                const {data, status} = response;
+
+                if(data.success) {
+                    swal("Berhasil", data.message, "success");
+                    localStorage.removeItem(storageName);
+                    window.location.href = "{!! url('details_product') !!}"
+                }
+
+            }).catch(function(error) {
+
+            })
+        }
+
 
 
     });

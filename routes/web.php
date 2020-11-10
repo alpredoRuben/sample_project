@@ -34,6 +34,7 @@ Route::group(['namespace' => 'Client'], function () {
 
         /** Product Detail */
         Route::resource('details_product', 'ProductDetailController');
+        Route::get('/list/details_product', 'ProductDetailController@getListDetail');
 
         /** Classifications */
         Route::get('classifications/all', 'ClassificationController@getClassifications');
@@ -43,7 +44,9 @@ Route::group(['namespace' => 'Client'], function () {
         Route::group(['prefix' => 'datatables'], function () {
             Route::get('categories', 'MasterDatatableController@categoriesRecord');
             Route::get('products', 'MasterDatatableController@productsRecord');
-            Route::get('classification_products', 'MasterDatatableController@prodcutClassificationRecord');
+            Route::get('classification_products', 'MasterDatatableController@productClassificationRecord');
+
+            Route::get('product_details', 'MasterDatatableController@productDetailsRecord');
         });
     });
 });

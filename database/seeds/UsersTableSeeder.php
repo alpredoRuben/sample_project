@@ -20,8 +20,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $general = User::create([
-            'name' => 'Ruben Alpredo Tampubolon',
-            'email' => 'alpredo.tampubolon@gmail.com',
+            'name' => 'Dummy User',
+            'email' => 'dummy@localhost.com',
             'password' => bcrypt('12345678')
         ]);
 
@@ -37,5 +37,11 @@ class UsersTableSeeder extends Seeder
         $permissions = Permission::pluck('id', 'id')->all();
         $roleAdmin->syncPermissions($permissions);
         $admin->assignRole([$roleAdmin->id]);
+
+        /** Set Admin */
+        $roleGeneral = $this->findRole('general');
+        $permissions = Permission::whereIn('name', ['find-category', 'show-categories', 'find-product', 'show-products'])->get();
+        $roleGeneral->syncPermissions($permissions);
+        $general->assignRole([$roleGeneral->id]);
     }
 }

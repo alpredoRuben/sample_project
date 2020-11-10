@@ -3,7 +3,11 @@
 
 @section('content')
 
-@include('containers.product.breadcrumb', ['records' => $records])
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{strtoupper($records['title'])}}</h2>
+    </div>
+</div>
 
 <div class="wrapper wrapper-content">
     <div class="row">
@@ -19,14 +23,6 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-sm-9 m-b-xs">
-                            <a href="{{ route('details_product.create') }}" class="btn btn-sm btn-primary" >
-                                <i class="fa fa-plus"></i>
-                                Detail Produk
-                            </a>
-                        </div>
-                    </div>
                     <div class="table-responsive">
                         <table id="tableDetailProducts" class="table table-striped">
                             <thead>

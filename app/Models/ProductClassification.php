@@ -12,4 +12,9 @@ class ProductClassification extends Model
     {
         return $this->belongsTo('App\Models\Classification', 'classification_id', 'id');
     }
+
+    public function class_variants()
+    {
+        return $this->hasMany('App\Models\ProductVariant', 'product_class_id', 'id');
+    }
 }

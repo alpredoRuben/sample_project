@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\User;
 use App\Models\ProductClassification;
+use App\Models\ProductVariant;
 
 class MasterDatatableController extends Controller
 {
@@ -64,7 +65,7 @@ class MasterDatatableController extends Controller
         })->rawColumns(['action'])->make(true);
     }
 
-    public function prodcutClassificationRecord(Request $req)
+    public function productClassificationRecord(Request $req)
     {
         $user = Auth::user();
         $records = ProductClassification::with(['classification'])->orderBy('id', 'desc')->get();
@@ -85,6 +86,35 @@ class MasterDatatableController extends Controller
             return $str;
         })->addColumn('type_name', function ($query) {
             return $query->classification->type_name;
+        })->rawColumns(['action'])->make(true);
+    }
+
+    public function productDetailsRecord(Request $req)
+    {
+        $user = Auth::user();
+
+        $records = ProductDetail::with([
+            'product',
+            'product_variants',
+            'user'
+        ])->get();
+
+        return DataTables::of($records)->addColumn('action', function ($query) use ($user) {
+            $str = '';
+
+            if ($user->hasRole('admin')) {
+                $str .= '<button type="button" class="btn btn-sm btn-danger" onclick="deleteRow(\'' . $query->id . '\')" title="Delete Row">';
+                $str .= '<i class="fa fa-trash"></i>';
+                $str .= '</button>';
+            } else {
+                $str .= '<button type="button" class="btn btn-sm btn-success" onclick="deleteRow(\'' . $query->id . '\')" title="Order Row">';
+                $str .= '<i class="fa fa-cart-plus"></i> Pesan';
+                $str .= '</button>';
+            }
+
+            return $str;
+        })->addColumn('group_name', function ($query) {
+            return $query->product->name;
         })->rawColumns(['action'])->make(true);
     }
 }

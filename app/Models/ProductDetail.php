@@ -23,4 +23,9 @@ class ProductDetail extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
+
+    public function product_variants()
+    {
+        return $this->hasMany('App\Models\ProductVariant', 'product_detail_id', 'id');
+    }
 }
