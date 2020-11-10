@@ -29,13 +29,16 @@ Route::group(['namespace' => 'Client'], function () {
         });
 
         /** Product Classification */
-        Route::resource('classification', 'ProductClassificationController')->except([ 'edit', 'create']);
+        Route::resource('classification_products', 'ProductClassificationController')->except([ 'edit', 'create']);
 
+        /** Classifications */
+        Route::get('classifications/all', 'ClassificationController@getClassifications');
 
 
         Route::group(['prefix' => 'datatables'], function () {
             Route::get('categories', 'MasterDatatableController@categoriesRecord');
             Route::get('products', 'MasterDatatableController@productsRecord');
+            Route::get('classification_products', 'MasterDatatableController@prodcutClassificationRecord');
         });
     });
 });

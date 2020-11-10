@@ -3,16 +3,24 @@
         <h2>MASTER {{strtoupper($records['title'])}}</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="{{ route('products.index') }}">Data Produk</a>
+                <a href="{{ route('products.index') }}" class="btn btn-link btn-sm">
+                    <strong>Data Produk</strong>
+                </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="index.html">Klasifikasi Produk</a>
+                <a href="{{ route('classification_products.index') }}" class="btn btn-link btn-sm">
+                    <strong>Klasifikasi Produk</strong>
+                </a>
             </li>
             <li class="breadcrumb-item active">
-                <a href="index.html">Produk Variant</a>
+                <a href="index.html" class="btn btn-link btn-sm">
+                    <strong>Produk Variant</strong>
+                </a>
             </li>
             <li class="breadcrumb-item active">
-                <a href="index.html">Detail Produk</a>
+                <a href="index.html" class="btn btn-link btn-sm">
+                    <strong>Detail Produk</strong>
+                </a>
             </li>
         </ol>
     </div>

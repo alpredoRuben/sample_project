@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <div data-toggle="buttons" class="btn-group btn-group-toggle">
-                                <button class="btn btn-sm btn-primary" onclick="showCategoryModal('add')">
+                                <button class="btn btn-sm btn-primary" onclick="showModals('add')">
                                     <i class="fa fa-plus"></i>
                                     Tambah Kategori
                                 </button>
@@ -145,7 +145,7 @@ function hideCategoryModal() {
     $("#modalCategory").modal('hide');
 }
 
-function showCategoryModal(str, data=null) {
+function showModals(str, data=null) {
     $("#modalCategory").modal('show');
 
     var modal = $("#modalCategory");
@@ -153,12 +153,11 @@ function showCategoryModal(str, data=null) {
     var buttonText = 'Save';
 
     modal.find('#formCategory').trigger("reset");
-
+    modal.find('.modal-footer button#submitCategory').attr('data-id', "");
 
     if(str != 'add') {
         title = 'Ubah Kategori';
         buttonText = 'Update';
-        modal.find('.modal-footer button#submitCategory').attr('data-id', "");
     }
 
     modal.find('.modal-title').text(title);
@@ -168,7 +167,7 @@ function showCategoryModal(str, data=null) {
 function editRow(id) {
     Api.get(`/categories/${id}`).then(function(response) {
         const {data} = response;
-        showCategoryModal('update', data);
+        showModals('update', data);
         $('#submitCategory').attr('data-id', data.id);
         $("#categoryName").val(data.name);
         $("#categoryDesc").val(data.description);

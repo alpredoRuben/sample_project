@@ -21,7 +21,7 @@ class ProductClassificationController extends Controller
             'title' => 'produk'
         ];
 
-        return view('containers.classification.index', compact('records'));
+        return view('containers.prodcut_classification.index', compact('records'));
     }
 
     /**

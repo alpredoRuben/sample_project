@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\User;
+use App\Models\ProductClassification;
 
 class MasterDatatableController extends Controller
 {
@@ -60,6 +61,29 @@ class MasterDatatableController extends Controller
             return $str;
         })->addColumn('status', function ($query) {
             return $query->product_details;
+        })->rawColumns(['action'])->make(true);
+    }
+
+    public function prodcutClassificationRecord(Request $req)
+    {
+        $user = Auth::user();
+        $records = ProductClassification::with(['classification'])->orderBy('id', 'desc')->get();
+
+        return DataTables::of($records)->addColumn('action', function ($query) use ($user) {
+
+            if ($user->hasRole('admin')) {
+                $str .= '<button type="button" class="btn btn-success btn-sm" onclick="editRow(\'' . $query->id . '\')" title="Edit Row">';
+                $str .= '<i class="fa fa-edit"></i>';
+                $str .= '</button>&nbsp;';
+
+                $str .= '<button type="button" class="btn btn-sm btn-danger" onclick="deleteRow(\'' . $query->id . '\')" title="Delete Row">';
+                $str .= '<i class="fa fa-trash"></i>';
+                $str .= '</button>';
+            }
+
+            return $str;
+        })->addColumn('type_name', function ($query) {
+            return $query->classification->type_name;
         })->rawColumns(['action'])->make(true);
     }
 }

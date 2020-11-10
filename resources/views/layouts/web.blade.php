@@ -11,6 +11,10 @@
     <link href="{{ asset('template/css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
     <link href="{{ asset('template/css/plugins/morris/morris-0.4.3.min.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+
     <link href="{{ asset('template/css/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('template/css/style.css')}}" rel="stylesheet">
 
@@ -50,6 +54,8 @@
 
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
 
     <!-- Flot -->
     <script src="{{ asset('template/js/plugins/flot/jquery.flot.js') }}"></script>
