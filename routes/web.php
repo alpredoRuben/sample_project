@@ -50,7 +50,9 @@ Route::group(['namespace' => 'Client'], function () {
         });
 
         Route::group(['prefix' => 'invoices'], function () {
+            Route::get('/', 'InvoiceController@viewInvoice');
             Route::get('/view/payment', 'InvoiceController@viewPayment');
+            Route::post('/store/payment', 'InvoiceController@storePayment');
         });
 
 

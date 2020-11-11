@@ -157,19 +157,19 @@ class OrderController extends Controller
 
     public function tester()
     {
-        //session()->put('cart', []);
+        session()->put('cart', []);
 
-        $carts = session()->get('cart');
+        // $carts = session()->get('cart');
 
-        if ($carts && count($carts) > 0) {
-            $results = [];
-            foreach ($carts as $value) {
-                array_push($results, $value);
-            }
+        // if ($carts && count($carts) > 0) {
+        //     $results = [];
+        //     foreach ($carts as $value) {
+        //         array_push($results, $value);
+        //     }
 
-            return $results;
-        }
+        //     return $results;
+        // }
 
-        return $carts;
+        // return $carts;
     }
 }

@@ -50,14 +50,6 @@
                     <li><a href="">Manajemen Permission</a></li>
                 </ul>
             </li>
-
-            <li>
-                <a href="layouts.html">
-                    <i class="fa fa-text-o"></i>
-                    <span class="nav-label">Laporan</span>
-                </a>
-            </li>
-
             @else
             <li {!! $title == 'produk' ? "class='active'" : "" !!}>
                 <a href="{{ url('list/details_product') }}">
@@ -74,6 +66,12 @@
             </li>
             @endif
 
+            <li {!! $title == 'data faktur' ? "class='active'" : "" !!}>
+                <a href="{{ url('/invoices') }}">
+                    <i class="fa fa-files-o"></i>
+                    <span class="nav-label">Data Faktur</span>
+                </a>
+            </li>
 
 
         </ul>
