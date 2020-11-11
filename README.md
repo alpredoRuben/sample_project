@@ -51,3 +51,18 @@
 ```js
     php artisan serve
 ```
+
+* To Login this application. You can use thats id:
+
+```js
+    Login As Admin
+    Email : admin@localhost.com
+    Password: 12345678
+    
+    Login As User
+    Email : dummy@localhost.com
+    password: 12345678
+```
+
+* Enjoy Your Self
+  
