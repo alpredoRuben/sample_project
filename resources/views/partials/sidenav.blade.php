@@ -66,8 +66,8 @@
                 </a>
             </li>
 
-            <li {!! $title == 'produk' ? "class='active'" : "" !!}>
-                <a href="{{ url('list/details_product') }}">
+            <li {!! $title == 'cart' ? "class='active'" : "" !!}>
+                <a href="{{ url('/orders/cart/preview') }}">
                     <i class="fa fa-cart-plus"></i>
                     <span class="nav-label">Keranjang Belanja</span>
                 </a>

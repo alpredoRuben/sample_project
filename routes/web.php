@@ -43,7 +43,14 @@ Route::group(['namespace' => 'Client'], function () {
 
         Route::group(['prefix' => 'orders'], function () {
             Route::get('/preview/{id}', 'OrderController@previewOrder');
+            Route::get('/cart/preview', 'OrderController@previewCart');
             Route::post('/add_to_cart', 'OrderController@addToCart');
+            Route::get('/tester', 'OrderController@tester');
+            Route::get('/remove/{id}/cart/{code}', 'OrderController@removeCart');
+        });
+
+        Route::group(['prefix' => 'invoices'], function () {
+            Route::get('/view/payment', 'InvoiceController@viewPayment');
         });
 
 

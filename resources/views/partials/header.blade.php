@@ -8,10 +8,23 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
-                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                <a class="dropdown-toggle count-info" href="{{ url('/orders/cart/preview') }}">
                     <i class="fa fa-shopping-cart"></i>
                     <span class="label label-primary">
-                        {{ count(session('cart')) }}
+                        @php
+                            $carts = session('cart');
+                            if(!$carts) {
+                                echo 0;
+                            }
+                            else {
+                                $qty = 0;
+                                foreach ($carts as $key => $value) {
+                                    $qty += $value['total_quantity'];
+                                }
+
+                                echo $qty;
+                            }
+                        @endphp
                     </span>
                 </a>
             </li>
